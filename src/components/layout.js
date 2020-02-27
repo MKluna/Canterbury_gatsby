@@ -1,11 +1,18 @@
 import React from "react";
 import Helmet from "react-helmet";
 import Header from "./header";
+import Footer from "./footer";
 import {Global,css} from '@emotion/core';
+import useSeo from "../hooks/use-seo";
+
 
 const Layout = ({ children }) => 
 {
   
+   const seo = useSeo();
+   const {fallbackSeo:{description,title},facebookPageUrl} = seo;
+
+
 
   return (
     <>
@@ -42,14 +49,19 @@ const Layout = ({ children }) =>
                 `}
             />
     <Helmet>
-        <title>Canterbury Tortas Heladas</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
+        <title>{title}</title>
+        <meta name="description" content={description}/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css?family=Cherry+Cream+Soda|Raleway:700&display=swap" rel="stylesheet"/>
     </Helmet>
 
 
       <Header/>  
       {children}
+      <Footer
+        title={title}
+        facebook={facebookPageUrl}
+      />
     </>
   )
 }

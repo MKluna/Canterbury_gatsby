@@ -1,7 +1,31 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+exports.createPages = async ({ actions, graphql, reporter }) => {
+  const resultado = await graphql(`
+    query {
+      allDatoCmsTorta {
+        nodes {
+          slug
+        }
+      }
+    }
+  `)
 
-// You can delete this file if you're not using it
+  //   console.log(resultado.data.allDatoCmsTorta.nodes);
+  if (resultado.errors) {
+    reporter.panic("No hubo resultados ", resultado.errors)
+  }
+
+  //Si hay paginas crear archivos
+  const tortas = resultado.data.allDatoCmsTorta.nodes
+  console.log(tortas)
+
+
+  tortas.forEach(torta => {
+    actions.createPage({
+      path: torta.slug,
+      component: require.resolve("./src/components/tortas.js"),
+      context: {
+        slug: torta.slug,
+      },
+    })
+  })
+}

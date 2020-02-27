@@ -1,6 +1,5 @@
 import React from "react"
 import { css } from "@emotion/core"
-import Navegacion from "./nav"
 import styled from "@emotion/styled"
 import { Link } from "gatsby"
 
@@ -10,9 +9,13 @@ const EnlaceHome = styled(Link)`
   text-decoration: none;
 `
 
-const Header = () => {
+const Footer = ({title,facebook}) => {
+
+  const year = new Date().getFullYear();  
+
   return (
-    <header
+    <>  
+    <footer
       css={css`
         background-color: rgba(0, 255, 202, 1);
         padding: 1rem;
@@ -29,14 +32,34 @@ const Header = () => {
           }
         `}
       >
+        
         <EnlaceHome to="/">
           <h1>Canterbury Tortas Heladas</h1>
         </EnlaceHome>
 
-        <Navegacion />
+       
       </div>
-    </header>
+    </footer>
+    <p
+     css={css`
+     text-align: center;
+     color: black;
+     background-color: rgba(11, 23, 0, 0.4);
+     margin: 0;
+     padding: 1rem;
+ `}
+    >{title},Todos los derechos reservados {year} &copy; Facebook: <a href={facebook}>Canterbury Tortas Heladas</a> </p>
+    <p
+     css={css`
+     text-align: center;
+     color: black;
+     background-color: rgba(11, 23, 0, 0.4);
+     margin: 0;
+     padding: 1rem;
+ `}
+    >Website Created by the programmer <a href="https://github.com/MKluna">Luna Matias</a></p>        
+    </>      
   )
 }
 
-export default Header
+export default Footer
